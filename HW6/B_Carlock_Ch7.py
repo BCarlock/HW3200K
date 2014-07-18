@@ -37,3 +37,11 @@ for row in cursor:
 
 
 # Chapter 7 Question 2
+import arcpy
+from arcpy import env
+env.workspace = "E:/Python/Homework/Data/Exercise07/Roads.shp"
+fc = "Results/Roads.shp"
+newfield = "FERRY"
+fieldtype = "TEXT"
+fieldfeature = arcpy.ValidateFieldName(newfield)
+cursor = arcpy.AddField_management("roads", "Ferry", "TEXT", 3)
