@@ -45,3 +45,29 @@ newfield = "FERRY"
 fieldtype = "TEXT"
 fieldfeature = arcpy.ValidateFieldName(newfield)
 cursor = arcpy.AddField_management("roads", "Ferry", "TEXT", 3)
+
+
+#Still working on it
+import arcpy
+from arcpy import env
+env.workspace = "E:/Python_Prog/Python/Data/Exercise07/roads.shp"
+fc = "roads.shp"
+newfield = "FERRY"
+fieldtype = "TEXT"
+fieldfeature = arcpy.ValidateFieldName(newfield)
+cursor = arcpy.AddField_management("roads", "Ferry", "TEXT", 3)
+
+arcpy.AddField_management(fc, "FERRY", "TEXT","","", "")
+delimfield1 = arcpy.AddFieldDelimiters(fc, "FERRY")
+delimfield2 = arcpy.AddFieldDelimiters(fc, "FEATURE")
+cursor = arcpy.da.UpdateCursor(fc,["FEATURE", "FERRY"])
+for row in cursor:
+  if row[0] == 'Ferry Crossing':
+    row[1] = 'YES'
+  else:
+    row[1] = 'NO'
+    cursor.updateRow(row)
+
+del row
+del cursor
+del fc
